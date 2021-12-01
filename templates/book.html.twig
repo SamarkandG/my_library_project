@@ -2,16 +2,16 @@
 
 {% block main %}
 
-<main>
-    <article>
-        <img width="400px" src="{{ book.image }}" alt="{{ book.title }}">
-        <h2>{{ book.title }}</h2>
-        <h3>{{ book.author }}</h3>
-        <p>{{ book.synopsis }}</p>
-        <em> Published on :{{ book.publishedAt | date ('m/d/y') }}</em>
+    <main>
+        <article>
+            <img width="400px" src="{{ book.image }}" alt="{{ book.title }}">
+            <h2>{{ book.title }}</h2>
+            <h3>{{ book.author }}</h3>
+            <p>{{ book.synopsis }}</p>
+            <em> Published on :{{ book.publishedAt | date ('m/d/y') }}</em>
 
 
-    </article>
-</main>
+        </article>
+    </main>
 
 {% endblock main %}
