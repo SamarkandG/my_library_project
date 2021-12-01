@@ -1,0 +1,41 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+p{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    margin: 0;
+    text-align: center;
+    padding-top: 300px;
+    color: white;
+    font-size: 100px;
+}
+
+.banner{
+    background-image: url("../img/bibli.jpg");
+    background-repeat: no-repeat;
+    width: auto;
+    height: 1800px;
+    text-align: center;
+    color: white;
+}
+
+.navbar{
+    background-color: sandybrown;
+    padding: 20px;
+    margin-bottom: 50px;
+}
