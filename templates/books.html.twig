@@ -15,7 +15,7 @@
         {% if book.publishedAt %}
 
         <article>
-            <img width="400px" src="{{ book.image }}" alt="{{ book.title }}">
+            <a href="{{ path('book', {"id": book.id}) }}"><img width="400px" src="{{ book.image }}" alt="{{ book.title }}"></a>
             <h2>{{ book.title }}</h2>
             <h3>{{ book.author }}</h3>
             <p>{{ book.synopsis }}</p>
