@@ -46,3 +46,23 @@ h1{
     padding: 20px;
     margin-top: 40px;
 }
+
+.lesbooks{
+    width: 30%;
+    margin: 20px;
+}
+
+.titre{
+    color: sandybrown;
+    padding: 0;
+}
+.lalisteentiere{
+    display: flex;
+}
+
+
+.imgbookalone{
+    width: 300px;
+}
+
+OBJECT FIT

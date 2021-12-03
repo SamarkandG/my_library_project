@@ -1,13 +1,13 @@
 {% extends "base.html.twig" %}
 
 {% block main %}
-<main>
+<main class="lalisteentiere">
 
     {% for book in books %}
         {% if book.publishedAt %}
 
-        <article>
-            <a href="{{ path('book', {"id": book.id}) }}"><img width="400px" src="{{ book.image }}" alt="{{ book.title }}"></a>
+        <article class="lesbooks">
+            <a href="{{ path('book', {"id": book.id}) }}"><img class="imglesbooks" src="{{ book.image }}" alt="{{ book.title }}"></a>
             <h2>{{ book.title }}</h2>
             <h3>{{ book.author }}</h3>
             <p>{{ book.synopsis }}</p>
