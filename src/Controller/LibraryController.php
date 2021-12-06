@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\AuthorRepository;
+use App\Repository\AuthorsRepository;
 use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +14,7 @@ class LibraryController extends AbstractController
      * @Route ("/", name="home")
      */
     // Ici je créer une fonction "HOME" pour n'afficher que les 3 premiers livres sur ma page d'accueil
+    // Avec symfony quand tu passe le nom d'une classe plus une variable, il instance une classe à ma place
 
     public function home(BookRepository $bookRepository)
     {

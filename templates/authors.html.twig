@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block main %}
+
+    {% for author in authors %}
+        {% if author.lastname %}
+
+            <article class="lesauthors">
+                <h2>{{ author.firstname }}</h2>
+                <h3>{{ author.lastname }}</h3>
+            </article>
+
+        {% endif %}
+    {% endfor %}
+
+{% endblock main %}
