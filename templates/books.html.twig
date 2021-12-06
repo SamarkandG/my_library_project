@@ -7,10 +7,8 @@
         {% if book.publishedAt %}
 
         <article class="lesbooks">
-            <a href="{{ path('book', {"id": book.id}) }}"><img class="imglesbooks" src="{{ book.image }}" alt="{{ book.title }}"></a>
-            <h2>{{ book.title }}</h2>
+            <a href="{{ path('book', {"id": book.id}) }}"> <h2>{{ book.title }}</h2></a>
             <h3>{{ book.author }}</h3>
-            <p>{{ book.synopsis }}</p>
             <em> Published on :{{ book.publishedAt | date ('m/d/y') }}</em>
         </article>
 
