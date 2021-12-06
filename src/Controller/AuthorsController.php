@@ -15,7 +15,7 @@ class AuthorsController extends AbstractController
 
     public function authors(AuthorsRepository $authorsRepository)
     {
-        // Ici je me sers de AUTHORREPOSITORY pour afficher l'ensemble des livres stockés en base de données
+        // Ici je me sers de AUTHORREPOSITORY pour afficher l'ensemble des livres stockés en base de données sur ma page HTML
         $authors = $authorsRepository->findAll();
 
         return $this->render("authors.html.twig",['authors'=> $authors]);

@@ -2,6 +2,11 @@
 
 {% block main %}
 
+    // Ici je fais une boucle pour que symfony affiche sur ma page HTML chacun des auteurs dans ma base de donnée
+    // Ils sont dans un "grand" tableau, il faut donc faire en sorte que symfony fasse le tour du tableau et remonte chaque donnée qu'elle trouve => une boucle
+    // Ici on demande que pour chaque auteur dans le grand tableau AUTHEURS, si l'autheur as un nom de famile "lastname" alors il faut afficher sur la page :
+    // Son nom de famille et son prénom !
+
     {% for author in authors %}
         {% if author.lastname %}
 
