@@ -10,12 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LibraryController extends AbstractController
 {
-    //Ici je récupère grâce à symfony les information que j'ai besoin d'afficher qui se trouvent en base de données
+    //Ici je récupère grâce à symfony les informations que j'ai besoin d'afficher qui se trouvent en base de données
     /**
      * @Route ("/", name="home")
      */
-    // Ici je créer une fonction "HOME" pour n'afficher que les 3 premiers livres sur ma page d'accueil
-    // Avec symfony quand tu passe le nom d'une classe plus une variable, il instance une classe à ma place
+    // Ici je crée une fonction "HOME" pour n'afficher que les 3 premiers livres sur ma page d'accueil
+    // Avec symfony quand tu passes le nom d'une classe plus une variable, il instance une classe à ma place
 
     public function home(BookRepository $bookRepository)
     {
@@ -37,23 +37,23 @@ class LibraryController extends AbstractController
         return $this->render("books.html.twig",['books'=> $books]);
     }
 
-    // Ici je créer une route pour commencer à créer une interface destinée à la  création
+    // Ici je crée une route pour commencer à créer une interface destinée à la création
     // D'un formulaire qui me permettras de rajouter des livres à ma BDD
 
     /**
      * @Route("/book/create", name="book_create")
      */
 
-    // Ici je créer ma nouvele fonction pour créer des nouveaux livres
-    //J'utilise et je créer une nouvelle instance de la classe BOOKS
+    // Ici je crée ma nouvelle fonction pour créer des nouveaux livres
+    //J'utilise et je crée une nouvelle instance de la classe BOOKS
     // pour pouvoir par la suite utiliser des variables et les remplir
     //Doctrine sert à prendre l'entité et toutes les données, les enregistre et les mets en base de connées
 
     public function createBook(EntityManagerInterface $entityManager)
     {
         //créer un livre en BDD
-        // j'instancie la class createBook pour en suite integrer des valeurs via les methodes "setter"
-        //Je remplis les même champs ue ceux dans ma BDD
+        // j'instancie la class createBook pour en suite intégrer des valeurs via les méthodes "setter"
+        //Je remplis les mêmes champs que ceux dans ma BDD
 
         $book = new Books();
         $book->setTitle("Les Thanatonautes");
@@ -63,9 +63,12 @@ class LibraryController extends AbstractController
 
         //Je DUMP pour savoir si tout fonctionne et s'affiche correctement
         // Symfony va utiliser ma classe ENTITYMANAGER pour instancier cette classe (autowire)
-        //
+
         $entityManager->persist($book);
         $entityManager->flush();
+
+        // return pour utiliser cette nouvelle fonction dans ma nouvelle page HTML
+        // Idéalement pour l'utiliser dans un formulaire
 
         return $this->render('authors_create.html.twig');
 

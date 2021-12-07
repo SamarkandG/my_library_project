@@ -12,23 +12,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AuthorsController extends AbstractController
 {
-// Ici je créer une route pour commencer à créer une interface destinée à la  création
-// D'un formulaire qui me permettras de rajouter des nom d'auteurs
+// Ici je crée une route pour commencer à créer une interface destinée à la création
+// D'un formulaire qui me permettras de rajouter des noms d'auteurs
     /**
      * @Route("/author/create", name="author_create")
      */
 
-    // Ici je créer ma nouvelle fonction pour créer des nouveaux auteurs
-
-    //J'utilise et je créer une nouvelle instance de la classe AUTHORS
+    //J'utilise et je crée une nouvelle instance de la classe AUTHORS
     // pour pouvoir par la suite utiliser des variables et les remplir
     //Doctrine sert à prendre l'entité et toutes les données, les enregistre et les mets en base de connées
 
     public function createAuthor(EntityManagerInterface $entityManager)
     {
-        //créer un auteur en BDD
-        // j'instancie la class Author pour en suite integrer des valeurs via les methodes "setter"
-        //Je remplis les même champs ue ceux dans ma BDD
+
+        //créer un livre en BDD
+        // j'instancie la class createBook pour en suite intégrer des valeurs via les méthodes "setter"
+        //Je remplis les mêmes champs que ceux dans ma BDD
 
         $author = new Author();
         $author->setfirstName("Bernard");
@@ -37,10 +36,12 @@ class AuthorsController extends AbstractController
 
         //Je DUMP pour savoir si tout fonctionne et s'affiche correctement
         // Symfony va utiliser ma classe ENTITYMANAGER pour instancier cette classe (autowire)
-        //
+
         $entityManager->persist($author);
         $entityManager->flush();
 
+            // return pour utiliser cette nouvelle fonction dans ma nouvelle page HTML
+        // Idéalement pour l'utiliser dans un formulaire
         return $this->render('book_create.html.twig');
     }
 
