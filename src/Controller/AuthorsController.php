@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Author;
 use App\Repository\AuthorsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,11 +18,16 @@ class AuthorsController extends AbstractController
      * @Route("/author/create", name="author_create")
      */
 
-    // Ici je créer ma nouvele fonction pour créer des nouveaux auteurs
+    // Ici je créer ma nouvelle fonction pour créer des nouveaux auteurs
 
-    public function createAuthor()
+    //J'utilise et je créer une nouvelle instance de la classe AUTHORS
+    // pour pouvoir par la suite utiliser des variables et les remplir
+    //Doctrine sert à prendre l'entité et toutes les données, les enregistre et les mets en base de connées
+
+    public function createAuthor(EntityManagerInterface $entityManager)
     {
         //créer un auteur en BDD
+        // j'instancie la class Author pour en suite integrer des valeurs via les methodes "setter"
         //Je remplis les même champs ue ceux dans ma BDD
 
         $author = new Author();
@@ -30,9 +36,12 @@ class AuthorsController extends AbstractController
         $author->setdeathDate(new \DateTime('1995-12-12'));
 
         //Je DUMP pour savoir si tout fonctionne et s'affiche correctement
+        // Symfony va utiliser ma classe ENTITYMANAGER pour instancier cette classe (autowire)
+        //
+        $entityManager->persist($author);
+        $entityManager->flush();
 
-        dump($author); die;
-
+        return $this->render('book_create.html.twig');
     }
 
 

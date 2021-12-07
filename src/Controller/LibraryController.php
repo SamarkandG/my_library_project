@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Books;
 use App\Repository\BookRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -44,18 +45,29 @@ class LibraryController extends AbstractController
      */
 
     // Ici je créer ma nouvele fonction pour créer des nouveaux livres
+    //J'utilise et je créer une nouvelle instance de la classe BOOKS
+    // pour pouvoir par la suite utiliser des variables et les remplir
+    //Doctrine sert à prendre l'entité et toutes les données, les enregistre et les mets en base de connées
 
-    public function createBook()
+    public function createBook(EntityManagerInterface $entityManager)
     {
         //créer un livre en BDD
+        // j'instancie la class createBook pour en suite integrer des valeurs via les methodes "setter"
         //Je remplis les même champs ue ceux dans ma BDD
+
         $book = new Books();
         $book->setTitle("Les Thanatonautes");
         $book->setAuthor("Bernard Werber");
         $book->setnbPages("700");
         $book->setPublishedAt(new \DateTime('1995-12-12'));
 
-        dump($book); die;
+        //Je DUMP pour savoir si tout fonctionne et s'affiche correctement
+        // Symfony va utiliser ma classe ENTITYMANAGER pour instancier cette classe (autowire)
+        //
+        $entityManager->persist($book);
+        $entityManager->flush();
+
+        return $this->render('authors_create.html.twig');
 
     }
 
