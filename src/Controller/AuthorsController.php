@@ -2,12 +2,43 @@
 
 namespace App\Controller;
 
+//Ici je fais appel à mon entité AUTHOR
+
+use App\Entity\Author;
 use App\Repository\AuthorsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuthorsController extends AbstractController
 {
+// Ici je créer une route pour commencer à créer une interface destinée à la  création
+// D'un formulaire qui me permettras de rajouter des nom d'auteurs
+    /**
+     * @Route("/author/create", name="author_create")
+     */
+
+    // Ici je créer ma nouvele fonction pour créer des nouveaux auteurs
+
+    public function createAuthor()
+    {
+        //créer un auteur en BDD
+        //Je remplis les même champs ue ceux dans ma BDD
+
+        $author = new Author();
+        $author->setfirstName("Bernard");
+        $author->setlastName("Werber");
+        $author->setdeathDate(new \DateTime('1995-12-12'));
+
+        //Je DUMP pour savoir si tout fonctionne et s'affiche correctement
+
+        dump($author); die;
+
+    }
+
+
+
+
+
 // Ici je créer une route "un accès" pour mon URL, pour accéder à la page des auteurs
     /**
      * @Route ("/authors", name="authors")

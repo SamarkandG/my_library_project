@@ -31,7 +31,7 @@ class Books
     /**
      * @ORM\Column(type="integer")
      */
-    private $nbPage;
+    private $nbPages;
 
     /**
      * @ORM\Column(type="string")
@@ -78,17 +78,17 @@ class Books
     /**
      * @return mixed
      */
-    public function getNbPage()
+    public function getnbPages()
     {
-        return $this->nbPage;
+        return $this->nbPages;
     }
 
     /**
-     * @param mixed $nbPage
+     * @param mixed $nbPages
      */
-    public function setNbPage($nbPage): void
+    public function setnbPages($nbPages): void
     {
-        $this->nbPage = $nbPage;
+        $this->nbPages = $nbPages;
     }
 
     /**

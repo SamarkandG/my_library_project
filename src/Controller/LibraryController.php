@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\AuthorsRepository;
+use App\Entity\Books;
 use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,6 +35,30 @@ class LibraryController extends AbstractController
 
         return $this->render("books.html.twig",['books'=> $books]);
     }
+
+    // Ici je créer une route pour commencer à créer une interface destinée à la  création
+    // D'un formulaire qui me permettras de rajouter des livres à ma BDD
+
+    /**
+     * @Route("/book/create", name="book_create")
+     */
+
+    // Ici je créer ma nouvele fonction pour créer des nouveaux livres
+
+    public function createBook()
+    {
+        //créer un livre en BDD
+        //Je remplis les même champs ue ceux dans ma BDD
+        $book = new Books();
+        $book->setTitle("Les Thanatonautes");
+        $book->setAuthor("Bernard Werber");
+        $book->setnbPages("700");
+        $book->setPublishedAt(new \DateTime('1995-12-12'));
+
+        dump($book); die;
+
+    }
+
 
     /**
      * @Route ("/book/{id}", name="book")
