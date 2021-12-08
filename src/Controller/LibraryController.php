@@ -94,6 +94,27 @@ class LibraryController extends AbstractController
     }
 
 
+    // Ici je crée une route vers une page qui va me permettre de supprimer un livre déjà existant dans ma base de données
+
+
+    /**
+     * @Route("/book/delete/{id}", name="book_delete")
+     */
+
+    //Ici je créer une instance de mon entité BOOKS qui va me permettre d'utiliser "ENTITY MANGER" et DOCTRINE
+    public function bookDelete($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
+    {
+        // Doctrine va chercher le livre que je souhaite supprimer en BDD grâce à l'ID que je sélectionne
+        $book = $bookRepository->find($id);
+
+        // Ici "entity manager" va me permettre d'enlever mon livre de ma base de donnée avec les fonctions "remove" et "flush"
+        $entityManager->remove($book);
+        $entityManager->flush();
+
+        return $this->render("book_delete.html.twig");
+    }
+
+
     /**
      * @Route ("/book/{id}", name="book")
      */

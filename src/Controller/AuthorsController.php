@@ -87,4 +87,25 @@ class AuthorsController extends AbstractController
         return $this->render('author_update.html.twig');
     }
 
+
+    // Ici je créer une route vers une page qui va me permettre de supprimer un AUTEUR déjà existant dans ma base de données
+
+
+    /**
+     * @Route("/author/delete/{id}", name="author_delete")
+     */
+
+    //Ici je crée une instance de mon entité BOOKS qui va me permettre d'utiliser "ENTITY MANGER" et DOCTRINE
+    public function authorDelete($id, AuthorsRepository $authorRepository, EntityManagerInterface $entityManager)
+    {
+        // Doctrine va chercher l'auteur que je souhaite supprimer en BDD grâce à l'ID que je sélectionne
+        $author = $authorRepository->find($id);
+
+        // Ici "entity manager" va me permettre d'enlever mon auteur de ma base de donnée avec les fonctions "remove" et "flush"
+        $entityManager->remove($author);
+        $entityManager->flush();
+
+        return $this->render("author_delete.html.twig");
+    }
+
 }
