@@ -70,8 +70,27 @@ class LibraryController extends AbstractController
         // return pour utiliser cette nouvelle fonction dans ma nouvelle page HTML
         // Idéalement pour l'utiliser dans un formulaire
 
-        return $this->render('authors_create.html.twig');
+        return $this->render('book_create.html.twig');
 
+    }
+
+
+    /**
+     * @Route("/book/update/{id}", name="book_update")
+     */
+    public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
+    {
+        // aller un chercher un livre (doctrine va me donner un objet, une instance de la classe Book)
+        $book = $bookRepository->find($id);
+
+        // modifier les valeurs via les setters
+        $book->setTitle('Mad Max reloaded');
+
+        // enregistrer en bdd avec l'entity manager
+        $entityManager->persist($book);
+        $entityManager->flush();
+
+        return $this->render('book_update.html.twig');
     }
 
 

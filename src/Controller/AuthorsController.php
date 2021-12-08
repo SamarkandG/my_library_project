@@ -42,7 +42,7 @@ class AuthorsController extends AbstractController
 
             // return pour utiliser cette nouvelle fonction dans ma nouvelle page HTML
         // Idéalement pour l'utiliser dans un formulaire
-        return $this->render('book_create.html.twig');
+        return $this->render('author_create.html.twig');
     }
 
 
@@ -61,6 +61,25 @@ class AuthorsController extends AbstractController
         $authors = $authorsRepository->findAll();
 
         return $this->render("authors.html.twig",['authors'=> $authors]);
+    }
+
+
+    /**
+     * @Route("/author/update/{id}", name="author_update")
+     */
+    public function updateAuthor($id, AuthorsRepository $authorRepository, EntityManagerInterface $entityManager)
+    {
+        // aller un chercher un livre (doctrine va me donner un objet, une instance de la classe Book)
+        $author = $authorRepository->find($id);
+
+        // modifier les valeurs via les setters
+        $author->setTitle('Mad Max reloaded');
+
+        // enregistrer en bdd avec l'entity manager
+        $entityManager->persist($author);
+        $entityManager->flush();
+
+        return $this->render('author_update.html.twig');
     }
 
 }
