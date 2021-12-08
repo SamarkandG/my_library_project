@@ -16,7 +16,7 @@
             </article>
 
         {% endif %}
-
+<!-- ici je crée une boucle pour afficher les livres des auteurs -->
             {% for book in author.books %}
                 <p>{{ book.title }}</p>
             {% endfor %}
