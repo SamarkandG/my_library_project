@@ -39,17 +39,16 @@ class Books
      */
     private $publishedAt;
 
-    // Me permet de relier les tableaux AUTEURS et de créer une clé étrangère
-    /**
-     * @ORM\ManyToOne(targetEntity=Author::class)
-     */
-    private $author;
-
     // Me permet de relier le tableau GENRE au tableau BOOKS grâce à une clé étrangère
     /**
      * @ORM\ManyToOne(targetEntity=Genre::class)
      */
     private $genre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Author::class, inversedBy="books")
+     */
+    private $author;
 
     /**
      * @return mixed
@@ -113,6 +112,18 @@ class Books
     public function setPublishedAt($publishedAt): void
     {
         $this->publishedAt = $publishedAt;
+    }
+
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Author $author): self
+    {
+        $this->author = $author;
+
+        return $this;
     }
 
 }
