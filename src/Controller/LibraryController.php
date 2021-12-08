@@ -101,7 +101,7 @@ class LibraryController extends AbstractController
      * @Route("/book/delete/{id}", name="book_delete")
      */
 
-    //Ici je créer une instance de mon entité BOOKS qui va me permettre d'utiliser "ENTITY MANGER" et DOCTRINE
+    //Ici je crée une instance de mon entité BOOKS qui va me permettre d'utiliser "ENTITY MANGER" et DOCTRINE
     public function bookDelete($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
     {
         // Doctrine va chercher le livre que je souhaite supprimer en BDD grâce à l'ID que je sélectionne

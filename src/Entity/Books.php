@@ -33,15 +33,16 @@ class Books
      */
     private $nbPages;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $author;
 
     /**
      * @ORM\Column(type="date")
      */
     private $publishedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Author::class)
+     */
+    private $author;
 
     /**
      * @return mixed
@@ -89,22 +90,6 @@ class Books
     public function setnbPages($nbPages): void
     {
         $this->nbPages = $nbPages;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param mixed $author
-     */
-    public function setAuthor($author): void
-    {
-        $this->author = $author;
     }
 
     /**
