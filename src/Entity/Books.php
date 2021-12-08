@@ -39,6 +39,7 @@ class Books
      */
     private $publishedAt;
 
+    // Me permet de relier les tableaux AUTEURS et de créer une clé étrangère
     /**
      * @ORM\ManyToOne(targetEntity=Author::class)
      */
