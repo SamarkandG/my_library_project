@@ -45,6 +45,12 @@ class Books
      */
     private $author;
 
+    // Me permet de relier le tableau GENRE au tableau BOOKS grâce à une clé étrangère
+    /**
+     * @ORM\ManyToOne(targetEntity=Genre::class)
+     */
+    private $genre;
+
     /**
      * @return mixed
      */
