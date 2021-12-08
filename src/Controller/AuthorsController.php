@@ -63,19 +63,24 @@ class AuthorsController extends AbstractController
         return $this->render("authors.html.twig",['authors'=> $authors]);
     }
 
+    // Ici je crée une fonction pour me permettre de faire des updates sur les auteurs déjà existants
+    //J'utilise et je crée une nouvelle instance de la classe AUTHORS
+    // pour pouvoir par la suite utiliser des variables et les remplir
+    //Doctrine sert à prendre l'entité et toutes les données, les enregistre et les mets en base de connées
+
 
     /**
      * @Route("/author/update/{id}", name="author_update")
      */
     public function updateAuthor($id, AuthorsRepository $authorRepository, EntityManagerInterface $entityManager)
     {
-        // aller un chercher un livre (doctrine va me donner un objet, une instance de la classe Book)
+        //Ici la doctrine par en base de donnée pour trouver le livre que je souhaite modifier grâce à l'ID
         $author = $authorRepository->find($id);
 
-        // modifier les valeurs via les setters
+        // Ici je peux modifier une valeur grâce aux méthodes de "setters"
         $author->setTitle('Mad Max reloaded');
 
-        // enregistrer en bdd avec l'entity manager
+        // Ici la méthode "entity manager" me permet d'enregistrer et pousser en base de donnée mes changements
         $entityManager->persist($author);
         $entityManager->flush();
 

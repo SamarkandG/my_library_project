@@ -83,10 +83,10 @@ class LibraryController extends AbstractController
         // aller un chercher un livre (doctrine va me donner un objet, une instance de la classe Book)
         $book = $bookRepository->find($id);
 
-        // modifier les valeurs via les setters
+        // Ici je peux modifier une valeur grâce aux méthodes de "setters"
         $book->setTitle('Mad Max reloaded');
 
-        // enregistrer en bdd avec l'entity manager
+        // Ici la méthode "entity manager" me permet d'enregistrer et pousser en base de donnée mes changements
         $entityManager->persist($book);
         $entityManager->flush();
 
