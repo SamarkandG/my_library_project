@@ -24,7 +24,7 @@ class AdminLibraryController extends AbstractController
         // j'utilise la méthode findBY de la classe BookRepository, indique je souhaite récupérer avec l'ID les 3 premiers livres dans l'ordre décroissant
         $books = $bookRepository->findBy([],['id'=>'DESC'],3);
 
-        return $this->render("Admin/home.html.twig", ['home'=> $books]);
+        return $this->render("home.html.twig", ['home'=> $books]);
 
     }
 
@@ -78,21 +78,29 @@ class AdminLibraryController extends AbstractController
 
 
     /**
-     * @Route("admin/book/update/{id}", name="admin_book_update")
+     * @Route("/admin/book/update/{id}", name="admin_book_update")
      */
-    public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
+    public function updateBook($id, Request $request,EntityManagerInterface $entityManager, BookRepository $bookRepository)
     {
         // aller un chercher un livre (doctrine va me donner un objet, une instance de la classe Book)
         $book = $bookRepository->find($id);
 
         // Ici je peux modifier une valeur grâce aux méthodes de "setters"
-        $book->setTitle('Mad Max reloaded');
+        $bookForm = $this->createForm(BookType::class, $book);
 
-        // Ici la méthode "entity manager" me permet d'enregistrer et pousser en base de donnée mes changements
-        $entityManager->persist($book);
-        $entityManager->flush();
 
-        return $this->render('Admin/book_update.html.twig');
+        $bookForm->handleRequest($request);
+
+        if ($bookForm->isSubmitted() && $bookForm->isValid()) {
+
+
+            // Ici la méthode "entity manager" me permet d'enregistrer et pousser en base de donnée mes changements
+            $entityManager->persist($book);
+            $entityManager->flush();
+        }
+
+        return $this->render("admin/book_update.html.twig", [
+            'bookForm' => $bookForm->createView()]);
     }
 
 
