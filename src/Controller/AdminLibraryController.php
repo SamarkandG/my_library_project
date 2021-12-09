@@ -3,16 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Books;
+use App\Form\BookType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class LibraryController extends AbstractController
+class AdminLibraryController extends AbstractController
 {
     //Ici je récupère grâce à symfony les informations que j'ai besoin d'afficher qui se trouvent en base de données
     /**
-     * @Route ("Admin/", name="home")
+     * @Route ("/", name="home")
      */
     // Ici je crée une fonction "HOME" pour n'afficher que les 3 premiers livres sur ma page d'accueil
     // Avec symfony quand tu passes le nom d'une classe plus une variable, il instance une classe à ma place
@@ -27,7 +29,7 @@ class LibraryController extends AbstractController
     }
 
     /**
-     * @Route ("admin/books", name="books")
+     * @Route ("admin/books", name="admin_books")
      */
     public function books(BookRepository $bookRepository)
     {
@@ -41,7 +43,7 @@ class LibraryController extends AbstractController
     // D'un formulaire qui me permettras de rajouter des livres à ma BDD
 
     /**
-     * @Route("admin/book/create", name="book_create")
+     * @Route("admin/book/create", name="admin_book_create")
      */
 
     // Ici je crée ma nouvelle fonction pour créer des nouveaux livres
@@ -49,34 +51,34 @@ class LibraryController extends AbstractController
     // pour pouvoir par la suite utiliser des variables et les remplir
     //Doctrine sert à prendre l'entité et toutes les données, les enregistre et les mets en base de connées
 
-    public function createBook(EntityManagerInterface $entityManager)
+    public function createBook(Request $request, EntityManagerInterface $entityManager)
     {
-        //créer un livre en BDD
-        // j'instancie la class createBook pour en suite intégrer des valeurs via les méthodes "setter"
-        //Je remplis les mêmes champs que ceux dans ma BDD
-
         $book = new Books();
-        $book->setTitle("Les Thanatonautes");
-        $book->setAuthor("Bernard Werber");
-        $book->setnbPages("700");
-        $book->setPublishedAt(new \DateTime('1995-12-12'));
+        $bookForm = $this->createForm(BookType::class, $book);
 
-        //Je DUMP pour savoir si tout fonctionne et s'affiche correctement
-        // Symfony va utiliser ma classe ENTITYMANAGER pour instancier cette classe (autowire)
+        //Ici j'utilise ma classe REQUEST pour pouvoir récupérer les informations de mon formulaire (associer mon formulaire à ma classe)
 
-        $entityManager->persist($book);
-        $entityManager->flush();
+        $bookForm->handleRequest($request);
 
-        // return pour utiliser cette nouvelle fonction dans ma nouvelle page HTML
-        // Idéalement pour l'utiliser dans un formulaire
+        // Ici j'utilise la classe "isSubmitted" pour savoir si les données de mon formulaire ont bien été "envoyées"
+        //Et la classe "IsValid" pour vérifier que les données présentent et envoyés sont en accordance avec le type de données que je souhaite récupérer
+        //Du style "string" = "string" et non pas "string" = "text" par exemple
 
-        return $this->render('Admin/book_create.html.twig');
+        if ($bookForm->isSubmitted() && $bookForm->isValid()) {
+
+            //Une fois que ces 2 conditions mises dans une boucle sont "ok" alors les méthodes d'entityManager : persist et push récupère les données du formulaire et
+            //les inscrivent bien en base de données.
+
+            $entityManager->persist($book);
+            $entityManager->flush();
+        }
+        return $this->render('Admin/book_create.html.twig', ['bookForm' =>$bookForm->createView()]);
 
     }
 
 
     /**
-     * @Route("admin/book/update/{id}", name="book_update")
+     * @Route("admin/book/update/{id}", name="admin_book_update")
      */
     public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
     {
@@ -98,7 +100,7 @@ class LibraryController extends AbstractController
 
 
     /**
-     * @Route("admin/book/delete/{id}", name="book_delete")
+     * @Route("admin/book/delete/{id}", name="admin_book_delete")
      */
 
     //Ici je crée une instance de mon entité BOOKS qui va me permettre d'utiliser "ENTITY MANGER" et DOCTRINE
@@ -111,12 +113,12 @@ class LibraryController extends AbstractController
         $entityManager->remove($book);
         $entityManager->flush();
 
-        return $this->render("Admin/books.html.twig");
+        return$this->redirectToRoute('admin_books');
     }
 
 
     /**
-     * @Route ("admin/book/{id}", name="book")
+     * @Route ("admin/book/{id}", name="admin_book")
      */
     //Ici je créer une fonction me permettant d'afficher sur une page uniquement les livres sélectionnés en fonction de leur ID
     public function book($id, BookRepository $bookRepository)
