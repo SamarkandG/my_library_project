@@ -27,7 +27,7 @@ class LibraryController extends AbstractController
     }
 
     /**
-     * @Route ("/books", name="books")
+     * @Route ("admin/books", name="books")
      */
     public function books(BookRepository $bookRepository)
     {
@@ -41,7 +41,7 @@ class LibraryController extends AbstractController
     // D'un formulaire qui me permettras de rajouter des livres à ma BDD
 
     /**
-     * @Route("/book/create", name="book_create")
+     * @Route("admin/book/create", name="book_create")
      */
 
     // Ici je crée ma nouvelle fonction pour créer des nouveaux livres
@@ -76,7 +76,7 @@ class LibraryController extends AbstractController
 
 
     /**
-     * @Route("/book/update/{id}", name="book_update")
+     * @Route("admin/book/update/{id}", name="book_update")
      */
     public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
     {
@@ -98,7 +98,7 @@ class LibraryController extends AbstractController
 
 
     /**
-     * @Route("/book/delete/{id}", name="book_delete")
+     * @Route("admin/book/delete/{id}", name="book_delete")
      */
 
     //Ici je crée une instance de mon entité BOOKS qui va me permettre d'utiliser "ENTITY MANGER" et DOCTRINE
@@ -116,7 +116,7 @@ class LibraryController extends AbstractController
 
 
     /**
-     * @Route ("/book/{id}", name="book")
+     * @Route ("admin/book/{id}", name="book")
      */
     //Ici je créer une fonction me permettant d'afficher sur une page uniquement les livres sélectionnés en fonction de leur ID
     public function book($id, BookRepository $bookRepository)
