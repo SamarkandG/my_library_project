@@ -22,7 +22,7 @@ class LibraryController extends AbstractController
         // j'utilise la méthode findBY de la classe BookRepository, indique je souhaite récupérer avec l'ID les 3 premiers livres dans l'ordre décroissant
         $books = $bookRepository->findBy([],['id'=>'DESC'],3);
 
-        return $this->render("home.html.twig", ['home'=> $books]);
+        return $this->render("Admin/home.html.twig", ['home'=> $books]);
 
     }
 
@@ -34,7 +34,7 @@ class LibraryController extends AbstractController
         // Ici je rme sers de BOOKREPOSITORY pour afficher l'ensemble des livres stockés en base de données
         $books = $bookRepository->findAll();
 
-        return $this->render("books.html.twig",['books'=> $books]);
+        return $this->render("Admin/books.html.twig",['books'=> $books]);
     }
 
     // Ici je crée une route pour commencer à créer une interface destinée à la création
@@ -70,7 +70,7 @@ class LibraryController extends AbstractController
         // return pour utiliser cette nouvelle fonction dans ma nouvelle page HTML
         // Idéalement pour l'utiliser dans un formulaire
 
-        return $this->render('book_create.html.twig');
+        return $this->render('Admin/book_create.html.twig');
 
     }
 
@@ -90,7 +90,7 @@ class LibraryController extends AbstractController
         $entityManager->persist($book);
         $entityManager->flush();
 
-        return $this->render('book_update.html.twig');
+        return $this->render('Admin/book_update.html.twig');
     }
 
 
@@ -111,7 +111,7 @@ class LibraryController extends AbstractController
         $entityManager->remove($book);
         $entityManager->flush();
 
-        return $this->render("books.html.twig");
+        return $this->render("Admin/books.html.twig");
     }
 
 
@@ -123,7 +123,7 @@ class LibraryController extends AbstractController
     {
         $book = $bookRepository->find($id);
 
-        return $this->render("book.html.twig",['book'=> $book]);
+        return $this->render("Admin/book.html.twig",['book'=> $book]);
     }
 
 }
