@@ -5,44 +5,45 @@ namespace App\Controller;
 //Ici je fais appel à mon entité AUTHOR
 
 use App\Entity\Author;
+use App\Form\AuthorType;
 use App\Repository\AuthorsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AuthorsController extends AbstractController
+class AdminAuthorsController extends AbstractController
 {
 // Ici je crée une route pour commencer à créer une interface destinée à la création
 // D'un formulaire qui me permettras de rajouter des noms d'auteurs
+
+
     /**
-     * @Route("/author/create", name="author_create")
+     * @Route("/admin/author/create", name="admin_author_create")
      */
 
     //J'utilise et je crée une nouvelle instance de la classe AUTHORS
     // pour pouvoir par la suite utiliser des variables et les remplir
     //Doctrine sert à prendre l'entité et toutes les données, les enregistre et les mets en base de connées
 
-    public function createAuthor(EntityManagerInterface $entityManager)
+    public function createAuthor(Request $request,EntityManagerInterface $entityManager)
     {
-
-        //créer un livre en BDD
-        // j'instancie la class createBook pour en suite intégrer des valeurs via les méthodes "setter"
-        //Je remplis les mêmes champs que ceux dans ma BDD
-
         $author = new Author();
-        $author->setfirstName("Bernard");
-        $author->setlastName("Werber");
-        $author->setdeathDate(new \DateTime('1995-12-12'));
+        $authorForm = $this->createForm(AuthorType::class, $author);
 
-        //Je DUMP pour savoir si tout fonctionne et s'affiche correctement
-        // Symfony va utiliser ma classe ENTITYMANAGER pour instancier cette classe (autowire)
 
-        $entityManager->persist($author);
-        $entityManager->flush();
+        $authorForm->handleRequest($request);
 
-            // return pour utiliser cette nouvelle fonction dans ma nouvelle page HTML
-        // Idéalement pour l'utiliser dans un formulaire
-        return $this->render('author_create.html.twig');
+
+
+        if ($authorForm->isSubmitted() && $authorForm->isValid()) {
+
+
+
+            $entityManager->persist($author);
+            $entityManager->flush();
+        }
+        return $this->render('/author_create.html.twig', ['authorForm' =>$authorForm->createView()]);
     }
 
 
@@ -51,7 +52,7 @@ class AuthorsController extends AbstractController
 
 // Ici je créer une route "un accès" pour mon URL, pour accéder à la page des auteurs
     /**
-     * @Route ("/authors", name="authors")
+     * @Route ("/admin/authors", name="admin_authors")
      */
 
     // Ici je créer une fonction qui va me permettre d'accéder aux données voulues lorsque j'utiliserais le mot "authors" dans une mage twig
@@ -70,7 +71,7 @@ class AuthorsController extends AbstractController
 
 
     /**
-     * @Route("/author/update/{id}", name="author_update")
+     * @Route("/author/update/{id}", name="admin_author_update")
      */
     public function updateAuthor($id, AuthorsRepository $authorRepository, EntityManagerInterface $entityManager)
     {
@@ -92,7 +93,7 @@ class AuthorsController extends AbstractController
 
 
     /**
-     * @Route("/author/delete/{id}", name="author_delete")
+     * @Route("/admin/author/delete/{id}", name="admin_author_delete")
      */
 
     //Ici je crée une instance de mon entité BOOKS qui va me permettre d'utiliser "ENTITY MANGER" et DOCTRINE
