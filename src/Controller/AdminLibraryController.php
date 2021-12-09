@@ -60,8 +60,8 @@ class AdminLibraryController extends AbstractController
 
         $bookForm->handleRequest($request);
 
-        // Ici j'utilise la classe "isSubmitted" pour savoir si les données de mon formulaire ont bien été "envoyées"
-        //Et la classe "IsValid" pour vérifier que les données présentent et envoyés sont en accordance avec le type de données que je souhaite récupérer
+        // Ici j'utilise la méthode "isSubmitted" de la classe bookForm pour savoir si les données de mon formulaire ont bien été "envoyées"
+        //Et la méthode "IsValid" pour vérifier que les données présentent et envoyés sont en accordance avec le type de données que je souhaite récupérer
         //Du style "string" = "string" et non pas "string" = "text" par exemple
 
         if ($bookForm->isSubmitted() && $bookForm->isValid()) {
