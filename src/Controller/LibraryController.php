@@ -12,7 +12,7 @@ class LibraryController extends AbstractController
 {
     //Ici je récupère grâce à symfony les informations que j'ai besoin d'afficher qui se trouvent en base de données
     /**
-     * @Route ("/", name="home")
+     * @Route ("Admin/", name="home")
      */
     // Ici je crée une fonction "HOME" pour n'afficher que les 3 premiers livres sur ma page d'accueil
     // Avec symfony quand tu passes le nom d'une classe plus une variable, il instance une classe à ma place

@@ -8,11 +8,10 @@
     // Son nom de famille et son prénom ! -->
 
     {% for author in authors %}
-        {% if author.lastname %}
+        {% if author.firstname %}
 
             <article class="lesauthors">
                 <h2>{{ author.firstname }}</h2>
-                <h3>{{ author.lastname }}</h3>
             </article>
 
         {% endif %}
