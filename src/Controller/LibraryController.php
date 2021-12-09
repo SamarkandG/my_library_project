@@ -111,7 +111,7 @@ class LibraryController extends AbstractController
         $entityManager->remove($book);
         $entityManager->flush();
 
-        return $this->render("book_delete.html.twig");
+        return $this->render("books.html.twig");
     }
 
 
