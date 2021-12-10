@@ -50,7 +50,40 @@ class AdminAuthorsController extends AbstractController
 
 
 
-// Ici je créer une route "un accès" pour mon URL, pour accéder à la page des auteurs
+
+    // Ici je crée une fonction pour me permettre de faire des updates sur les auteurs déjà existants
+    //J'utilise et je crée une nouvelle instance de la classe AUTHORS
+    // pour pouvoir par la suite utiliser des variables et les remplir
+    //Doctrine sert à prendre l'entité et toutes les données, les enregistre et les mets en base de connées
+
+
+    /**
+     * @Route("admin/author/update/{id}", name="admin_author_update")
+     */
+    public function authorUpdate($id, AuthorsRepository $authorRepository, EntityManagerInterface $entityManager, Request $request)
+    {
+        //je récupère donc grace a la méthode find ici l'auteur correspondant a l'id(la wild card) rentré dans lurl
+        $authorUpdate = $authorRepository->find($id);
+
+        $authorForm = $this->createForm(AuthorType::class, $authorUpdate);
+
+        $authorForm->handleRequest($request);
+
+        if ($authorForm->isSubmitted() && $authorForm->isValid())
+        {
+
+            $entityManager->persist($authorUpdate);
+            $entityManager->flush();
+
+        }
+
+        return $this->render('/author_update.html.twig',[
+            'authorForm'=>$authorForm->createView()
+        ]);
+    }
+
+
+    // Ici je créer une route "un accès" pour mon URL, pour accéder à la page des auteurs
     /**
      * @Route ("/admin/authors", name="admin_authors")
      */
@@ -63,31 +96,6 @@ class AdminAuthorsController extends AbstractController
 
         return $this->render("authors.html.twig",['authors'=> $authors]);
     }
-
-    // Ici je crée une fonction pour me permettre de faire des updates sur les auteurs déjà existants
-    //J'utilise et je crée une nouvelle instance de la classe AUTHORS
-    // pour pouvoir par la suite utiliser des variables et les remplir
-    //Doctrine sert à prendre l'entité et toutes les données, les enregistre et les mets en base de connées
-
-
-    /**
-     * @Route("/author/update/{id}", name="admin_author_update")
-     */
-    public function updateAuthor($id, AuthorsRepository $authorRepository, EntityManagerInterface $entityManager)
-    {
-        //Ici la doctrine par en base de donnée pour trouver le livre que je souhaite modifier grâce à l'ID
-        $author = $authorRepository->find($id);
-
-        // Ici je peux modifier une valeur grâce aux méthodes de "setters"
-        $author->setTitle('Mad Max reloaded');
-
-        // Ici la méthode "entity manager" me permet d'enregistrer et pousser en base de donnée mes changements
-        $entityManager->persist($author);
-        $entityManager->flush();
-
-        return $this->render('author_update.html.twig');
-    }
-
 
     // Ici je créer une route vers une page qui va me permettre de supprimer un AUTEUR déjà existant dans ma base de données
 
