@@ -58,7 +58,7 @@ class AdminAuthorsController extends AbstractController
 
 
     /**
-     * @Route("admin/author/update/{id}", name="admin_author_update")
+     * @Route("/admin/author/update/{id}", name="admin_author_update")
      */
     public function authorUpdate($id, AuthorsRepository $authorRepository, EntityManagerInterface $entityManager, Request $request)
     {
@@ -77,7 +77,7 @@ class AdminAuthorsController extends AbstractController
 
         }
 
-        return $this->render('/author_update.html.twig',[
+        return $this->render('/Admin/author_update.html.twig',[
             'authorForm'=>$authorForm->createView()
         ]);
     }
