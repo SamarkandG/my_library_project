@@ -1,4 +1,4 @@
-{% extends "Admin/base.html.twig" %}
+{% extends "base.html.twig" %}
 
 {% block main %}
 
@@ -12,6 +12,15 @@
 
             <article class="lesauthors">
                 <h2>{{ author.firstname }}</h2>
+
+                <!-- Ici je rajoute des boutons pour afficher, modifier ou supprimer un auteur
+                 J'utilise la fonction "path" pour indiquer le chemin de mon lien vers l'un de mes formulaires -->
+                <a class="a_list" href="{{ path('admin_authors',{'id': author.id}) }}">Voir Plus</a>
+                <br>
+                <a class="a_list" href="{{ path('admin_author_delete',{'id': author.id}) }}">Supprimer</a>
+                <br>
+                <a class="a_list" href="{{ path('admin_author_update',{'id': author.id}) }}">Update</a>
+                <br>
             </article>
 
         {% endif %}

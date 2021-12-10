@@ -94,7 +94,7 @@ class AdminAuthorsController extends AbstractController
         // Ici je me sers de AUTHORREPOSITORY pour afficher l'ensemble des livres stockés en base de données sur ma page HTML
         $authors = $authorsRepository->findAll();
 
-        return $this->render("authors.html.twig",['authors'=> $authors]);
+        return $this->render("admin/authors.html.twig",['authors'=> $authors]);
     }
 
     // Ici je créer une route vers une page qui va me permettre de supprimer un AUTEUR déjà existant dans ma base de données
@@ -116,5 +116,7 @@ class AdminAuthorsController extends AbstractController
 
         return $this->render("author_delete.html.twig");
     }
+
+
 
 }
