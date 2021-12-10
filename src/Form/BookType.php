@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Author;
 use App\Entity\Books;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,6 +23,17 @@ class BookType extends AbstractType
             ->add('title')
             ->add('nbPages')
             ->add('publishedAt')
+            //Pour pouvoir utiliser un menu déroulant pour choisir mon auteur
+                // Je crée une class avec ENTITY qui s'appelle "author"
+                //Je lie ma class AUTHOR à mon ENTITY AUTHOR
+                //J'utilise la variable $author comme référent pour mes choix dans la liste
+                // Je retourne sur mon formulaire Le Prénom et le Nom de mon auteur
+            ->add('author', EntityType::class, [
+                'class' => Author::class,
+                'choice_label' => function ($author) {
+                    return $author->getFirstName() . ' ' .  $author->getLastName();
+                }
+            ])
             //Ici j'ai rajouté dans mon formulaire un bouton "valider" pour faire l'action d'envoyer
                 // le nouveau livre en base de données
             ->add('valider', SubmitType::class)
