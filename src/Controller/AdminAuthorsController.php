@@ -43,7 +43,7 @@ class AdminAuthorsController extends AbstractController
             $entityManager->persist($author);
             $entityManager->flush();
         }
-        return $this->render('/author_create.html.twig', ['authorForm' =>$authorForm->createView()]);
+        return $this->render('/Admin/author_create.html.twig', ['authorForm' =>$authorForm->createView()]);
     }
 
 
@@ -117,6 +117,17 @@ class AdminAuthorsController extends AbstractController
         return $this->render("author_delete.html.twig");
     }
 
+
+    /**
+     * @Route("/admin/author/{id}", name="admin_author")
+     */
+    public function author($id, AuthorsRepository $authorRepository)
+    {
+        $author = $authorRepository->find($id);
+        return $this->render('admin/author.html.twig', [
+            'author' => $author
+        ]);
+    }
 
 
 }

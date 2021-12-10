@@ -4,10 +4,10 @@
 
     <!-- Ici je rajoute un bouton pour ajouter un nouvel auteur, il renvoie vers le formulaire d'ajout -->
 
-    <a href="{{ 'admin_author_create'}}">Ajouter un Nouvel Auteur</a>
+    <a class="" href="{{ path ('admin_author_create') }}">Ajouter un Nouvel Auteur</a>
     <!-- Ici je fais une boucle pour que symfony affiche sur ma page HTML chacun des auteurs dans ma base de donnée
     // Ils sont dans un "grand" tableau, il faut donc faire en sorte que symfony fasse le tour du tableau et remonte chaque donnée qu'elle trouve => une boucle
-    // Ici on demande que pour chaque auteur dans le grand tableau AUTHEURS, si l'autheur as un nom de famile "lastname" alors il faut afficher sur la page :
+    // Ici on demande que pour chaque auteur dans le grand tableau AUTHEURS, si l'auteur a un nom de famille "lastname" alors il faut afficher sur la page :
     // Son nom de famille et son prénom ! -->
 
     {% for author in authors %}
@@ -28,7 +28,7 @@
                 {% endif %}
                 <!-- Ici je rajoute des boutons pour afficher, modifier ou supprimer un auteur
                  J'utilise la fonction "path" pour indiquer le chemin de mon lien vers l'un de mes formulaires -->
-                    <a class="a_list" href="{{ path('admin_authors',{'id': author.id}) }}">Voir Plus</a>
+                    <a class="a_list" href="{{ path('admin_author',{'id': author.id}) }}">Voir Plus</a>
                     <br>
                     <a class="a_list" href="{{ path('admin_author_delete',{'id': author.id}) }}">Supprimer</a>
                     <br>
