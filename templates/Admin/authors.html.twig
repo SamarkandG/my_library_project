@@ -28,6 +28,7 @@
                 {% endif %}
                 <!-- Ici je rajoute des boutons pour afficher, modifier ou supprimer un auteur
                  J'utilise la fonction "path" pour indiquer le chemin de mon lien vers l'un de mes formulaires -->
+                    <br>
                     <a class="a_list" href="{{ path('admin_author',{'id': author.id}) }}">Voir Plus</a>
                     <br>
                     <a class="a_list" href="{{ path('admin_author_delete',{'id': author.id}) }}">Supprimer</a>

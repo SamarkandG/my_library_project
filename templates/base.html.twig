@@ -13,7 +13,9 @@
     <nav class="navbar">
         <ul style="list-style: none">
             <li><a href="{{ path('home') }}">Home</a></li>
-            <li><a href="{{ path('admin_books') }}">All</a></li>
+            <li><a href="{{ path('admin_books') }}">Books</a></li>
+            <li><a href="{{ path('admin_authors') }}">Authors</a></li>
+
         </ul>
 
         <form action="{{ path('admin_search_books') }}">
@@ -35,7 +37,9 @@
 <footer class="footer">
     <ul style="list-style: none">
         <li><a href="{{ path('home') }}">Home</a></li>
-        <li><a href="{{ path('admin_books') }}">All</a></li>
+        <li><a href="{{ path('admin_books') }}">Books</a></li>
+        <li><a href="{{ path('admin_authors') }}">Authors</a></li>
+
     </ul>
 </footer>
 
