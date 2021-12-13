@@ -5,7 +5,10 @@
     <main>
         <article>
             <h2>{{ book.title }}</h2>
-            <h3>{{ book.author }}</h3>
+            {% if book.author %}
+            <h3>{{ book.author.firstname }}</h3>
+            {% endif %}
+
             <em> Published on :{{ book.publishedAt | date ('m/d/y') }}</em>
             <a class="a_list" href="{{ path('admin_book_delete',{'id': book.id}) }}">Supprimer</a>
 

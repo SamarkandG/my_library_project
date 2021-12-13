@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 class BookType extends AbstractType
@@ -22,7 +23,9 @@ class BookType extends AbstractType
         $builder
             ->add('title')
             ->add('nbPages')
-            ->add('publishedAt')
+            ->add('publishedAt', DateType::class, [
+                'widget' => 'single_text'
+            ])
             //Pour pouvoir utiliser un menu déroulant pour choisir mon auteur
                 // Je crée une class avec ENTITY qui s'appelle "author"
                 //Je lie ma class AUTHOR à mon ENTITY AUTHOR
@@ -36,7 +39,7 @@ class BookType extends AbstractType
             ])
             //Ici j'ai rajouté dans mon formulaire un bouton "valider" pour faire l'action d'envoyer
                 // le nouveau livre en base de données
-            ->add('valider', SubmitType::class)
+            ->add('submit', SubmitType::class)
 
             // ->add('genre')
             //->add('author')

@@ -71,6 +71,12 @@ class AdminLibraryController extends AbstractController
 
             $entityManager->persist($book);
             $entityManager->flush();
+
+
+            // permet d'enregistré un message qui devra ensuite être affiché dans le twig
+            $this->addFlash('success', "Le livre a bien été enregistré !");
+
+            return $this->redirectToRoute('admin_books');
         }
         return $this->render('Admin/book_create.html.twig', ['bookForm' =>$bookForm->createView()]);
 
@@ -134,6 +140,25 @@ class AdminLibraryController extends AbstractController
         $book = $bookRepository->find($id);
 
         return $this->render("Admin/book.html.twig",['book'=> $book]);
+    }
+
+
+
+    /**
+     * @Route("/admin/search", name="admin_search_books")
+     */
+    public function searchBooks(BookRepository $bookRepository, Request $request)
+    {
+
+        // je récupère ce que tu l'utilisateur a recherché grâce à la classe Request
+        $word = $request->query->get('q');
+
+        // je fais ma requête en BDD grâce à la méthode que j'ai créée searchByTitle
+        $books = $bookRepository->searchByTitle($word);
+
+        return $this->render('admin/books_search.html.twig', [
+            'books' => $books
+        ]);
     }
 
 }

@@ -15,6 +15,11 @@
             <li><a href="{{ path('home') }}">Home</a></li>
             <li><a href="{{ path('admin_books') }}">All</a></li>
         </ul>
+
+        <form action="{{ path('admin_search_books') }}">
+            <input type="text" name="q">
+            <input type="submit">
+        </form>
     </nav>
 </header>
 
