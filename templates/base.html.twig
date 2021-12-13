@@ -25,6 +25,12 @@
 
 
     {% block main %}{% endblock main %}
+{# si des messages flashes de type 'success' ont été ajoutés, on les affiche #}
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
 
 <footer class="footer">
     <ul style="list-style: none">

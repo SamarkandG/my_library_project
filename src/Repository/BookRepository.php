@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-    use App\Entity\Book;
     use App\Entity\Books;
     use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
     use Doctrine\Persistence\ManagerRegistry;
@@ -15,32 +14,24 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Books::class);
     }
 
-    // /**
-    //  * @return Book[] Returns an array of Book objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function searchByTitle($word)
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        // j'utilise la méthode createQueryBuilder
+        // provenant de la classe parent
+        // et je définis un alias pour la table book
+        $queryBuilder = $this->createQueryBuilder('book');
 
-    /*
-    public function findOneBySomeField($value): ?Book
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        // je demande à Doctrine de créer une requête SQL
+        // qui fait une requête SELECT sur la table book
+        // à condition que le titre du book
+        // contiennent le contenu de $word (à un endroit ou à un autre, grâce à LIKE %xxxx%)
+        $query = $queryBuilder->select('book')
+            ->where('book.title LIKE :word')
+            ->setParameter('word', '%'.$word.'%')
+            ->getQuery();
+
+        // je récupère les résultats de la requête SQL
+        // et je les retourne
+        return $query->getResult();
     }
-    */
 }
