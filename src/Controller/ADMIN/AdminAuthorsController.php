@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\ADMIN;
 
 //Ici je fais appel à mon entité AUTHOR
 
